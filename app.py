@@ -15,7 +15,7 @@ from category_encoders import *
 
 app = Flask(__name__)
 model = pickle.load(open('Hpred.pkl', 'rb'))
-enc = pickle.load(open('enc.pkl', 'rb'))
+test_merged=pd.read_csv('blr_real_estate_prices.csv')
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -26,14 +26,13 @@ def predict():
     For rendering results on HTML GUI
     '''
     int_features = [int(x) for x in request.form.values()]
-    features=pd.DataFrame({'location':int_features[0],'area_type':int_features[1],'size':int_features[2],'society':int_features[3],'avg_sqft':int_features[4]})
+    features=pd.DataFrame({'location':int_features[0],'area_type':int_features[1],'size':int_features[2],'avg_sqft':int_features[4]})
     features['location']=features['location'].astype('category')
     features['area_type']=features['area_type'].astype('category')
     features['size']=features['size'].astype('category')
-    features['society']=features['society'].astype('category')
     features['avg_sqft']=features['avg_sqft'].astype('float')
 
-    int_features=enc.transform(features)
+   
     cols_to_transform1 = int_features.select_dtypes(include=['category','uint8']).columns
     int_features = pd.get_dummies(columns=cols_to_transform1, data=test_merged, prefix=cols_to_transform1, prefix_sep="_",drop_first=True)
     
