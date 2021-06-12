@@ -12,6 +12,7 @@ import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
 from category_encoders import *
+import sys
 
 app = Flask(__name__,template_folder='../template')
 model = pickle.load(open('Hpred.pkl', 'rb'))
