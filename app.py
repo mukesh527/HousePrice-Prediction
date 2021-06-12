@@ -16,6 +16,10 @@ from category_encoders import *
 app = Flask(__name__,template_folder='../template')
 model = pickle.load(open('Hpred.pkl', 'rb'))
 test_merged=pd.read_csv('cols.csv')
+import logging
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
+
 @app.route('/')
 def home():
     return render_template('index.html')
