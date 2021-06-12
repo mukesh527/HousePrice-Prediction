@@ -14,7 +14,7 @@ import pickle
 from category_encoders import *
 import sys
 
-app = Flask(__name__,template_folder='../template')
+app = Flask(__name__)
 model = pickle.load(open('Hpred.pkl', 'rb'))
 test_merged=pd.read_csv('cols.csv')
 import logging
