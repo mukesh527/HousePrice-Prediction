@@ -13,7 +13,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 from category_encoders import *
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='../template')
 model = pickle.load(open('Hpred.pkl', 'rb'))
 test_merged=pd.read_csv('cols.csv')
 @app.route('/')
